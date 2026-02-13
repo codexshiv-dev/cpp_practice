@@ -1,24 +1,48 @@
 #include <iostream>
-#int < iomainip
+#include <iomanip>
 using namespace std;
 
 void showBalance(double balance)
 {
-    cout << "your balance is : $ " << balance;
+    cout << "your balance is : $ " << fixed << setprecision(2) << balance << endl;
 }
 double deposit()
 {
-    return 0;
+    double amount = 0;
+    cout << "Enter amount to be deposited :";
+    cin >> amount;
+    if (amount > 0)
+    {
+        return amount;
+    }
+    else
+    {
+        cout << "That's not a valid amount.\n";
+    }
 }
-double withdraw(double amount)
+double withdraw(double balance)
 {
-    return 0;
+    double amount = 0;
+    cout << "Enter amount to be withdrawn: ";
+    cin >> amount;
+    if (amount > balance)
+    {
+        cout << "insufficient funds.\n";
+    }
+    else if (amount < 0)
+    {
+        cout << "That's not a valid amount. \n";
+    }
+    else
+    {
+        return amount;
+    }
 }
 
 int main()
 {
     double balance = 0;
-    int choice;
+    int choice = 0;
     do
     {
 
@@ -28,6 +52,8 @@ int main()
         cout << "3.Withdrow Money\n";
         cout << "4.Exit\n";
         cin >> choice;
+        cin.clear();
+        fflush(stdin); // clear the input buffer
         switch (choice)
         {
         case 1:
@@ -35,15 +61,19 @@ int main()
             break;
         case 2:
             balance += deposit();
+            showBalance(balance);
             break;
         case 3:
-            balance -= withdraw(balance);
+            balance = balance - withdraw(balance);
+
             break;
         case 4:
-            cout << "Invalid choice\n";
+            cout << "Thanks for visiting!\n";
+
             break;
 
         default:
+            cout << "Invalid choice\n";
             break;
         }
     } while (choice != 4);
